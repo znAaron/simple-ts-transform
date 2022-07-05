@@ -15,7 +15,11 @@ function visit<N extends Node>(nodeVisitor: NodeVisitor<N>, nodes: Node[]): Node
   return nextNodes
 }
 
-export default function (context: TransformationContext, nodeVisitors: NodeVisitor<any>[], tokenVisitor: Visitor): Visitor {
+export default function (
+  context: TransformationContext,
+  nodeVisitors: NodeVisitor<any>[],
+  tokenVisitor: Visitor | undefined
+): Visitor {
   const visitor: Visitor = node => {
     const newNodes = nodeVisitors.reduce(
       (nodes, nodeVisitor) => {
@@ -25,20 +29,20 @@ export default function (context: TransformationContext, nodeVisitors: NodeVisit
     )
 
     if (newNodes.length === 0) {
-      return undefined;
+      return undefined
     } else if (newNodes.length === 1) {
       return visitEachChild(newNodes[0], visitor, context, undefined, tokenVisitor)
     } else {
       const resultNodes: Node[] = []
       for (const newNode of newNodes) {
-        const visitOneResult = visitEachChild(newNode, visitor, context, undefined, tokenVisitor);
+        const visitOneResult = visitEachChild(newNode, visitor, context, undefined, tokenVisitor)
         if (typeof visitOneResult === 'undefined') {
-          return undefined;
+          return undefined
         } else {
-          resultNodes.push(visitOneResult);
+          resultNodes.push(visitOneResult)
         }
       }
-      return resultNodes;
+      return resultNodes
     }
   }
 

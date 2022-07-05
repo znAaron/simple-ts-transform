@@ -4,7 +4,7 @@ import type {
   TransformationContext,
   Transformer,
   TransformerFactory,
-  Visitor
+  Visitor,
 } from 'typescript'
 import { visitNode } from 'typescript'
 
@@ -16,7 +16,7 @@ type TransformerMetaFactory = (program: Program, configuration: unknown) => Tran
 export default function <C extends NodeVisitorContext>(
   Context: NodeVisitorContextType<C>,
   NodeVisitors: NodeVisitorType<C>[],
-  TokenVisitor: Visitor
+  TokenVisitor?: Visitor
 ): TransformerMetaFactory {
   return (program: Program, configuration: unknown): TransformerFactory<SourceFile> => {
     const context: C = new Context(program, configuration)

@@ -1,6 +1,6 @@
 {
-  "name": "simple-ts-transform",
-  "version": "1.1.0",
+  "name": "@znaaron/simple-ts-transform",
+  "version": "1.1.1",
   "description": "Library to help create simple typescript transformers",
   "keywords": [
     "typescript",
@@ -30,7 +30,7 @@
   "scripts": {
     "prepublishOnly": "pm-exec run all",
     "all": "pm-exec run clean && pm-exec run test && pm-exec run build",
-    "test": "pm-exec run test:lint && pm-exec run test:depends && pm-exec run test:unit",
+    "test": "pm-exec run test:lint && pm-exec run test:unit",
     "test:lint": "eslint --config .eslintrc.full.yaml --max-warnings 0 'src/**/*.ts'",
     "test:depends": "depcheck",
     "test:unit": "nyc mocha 'src/**/*.spec.ts'",
